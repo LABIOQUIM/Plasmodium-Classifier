@@ -15,6 +15,6 @@
 
 ### Desenvolvido por:
 - Dr. Fernando Berton Zanchi
-- Thales Junior de Souza Gomes
+- [Thales Junior de Souza Gomes](https://github.com/ThalesGomesJr)
 #### Copyright © LABIOQUIM - FIOCRUZ RONDÔNIA
 

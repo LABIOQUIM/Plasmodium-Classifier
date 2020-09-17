@@ -39,7 +39,7 @@ criterion = nn.BCELoss()
 optmizer = optim.Adam(classifier.parameters())
 
 #Base de dados de treinamento
-data_dir_training = os.path.expanduser('~') + '/plasmodiumclassifier/plasmodium_images/dataset/train_set'
+data_dir_training = os.path.expanduser('~') + '/Plasmodium-Classifier/plasmodium_images/dataset/train_set'
 
 #Transforma as imagens para que após o treinamento a rede neural também consiga 
 #classificar imagens com qualidade ruim, ou distorcidas.
@@ -103,7 +103,7 @@ def training_loop(loader, epoch):
     print('\r ÉPOCA {:3d} FINALIZADA: perda {:.5f} - precisão {:.5f}'.format(epoch + 1, running_loss/len(loader), running_accuracy/len(loader)))
 
 #Quanto maior a quantidade de epocas de treinamento, maior a precisão da rede na classificação
-for epoch in range(2):
+for epoch in range(10):
     print('Treinando...')
     training_loop(training_loader, epoch)
     classifier.eval()
