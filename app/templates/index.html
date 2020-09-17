@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form class="align-items-start" method="POST" action="/index" onsubmit="return validateProcessing()" enctype="multipart/form-data">
+                <div class="card profile-card-4 mt-4">
+                    <h2 class="mt-2" style="margin-left: 100px;">&nbsp;Realizar Classificação</h2>
+                    <div class="custom-file mt-2">
+                        <input type="file" class="custom-file-input" name="file" id="file" accept=".png, .jpeg, .jpg" required>
+                        <label class="custom-file-label ml-2 mr-2" for="file">Upload de Imagem</label>    
+                    </div>
+                    <button class="btn btn-success mt-4 mb-2" style="margin-left: 150px; margin-right:150px;" ><i class="fa fa-play-circle" aria-hidden="true"></i>&nbsp;Executar</button>                
+                </div>
+            </form>
+        </div>
+        
+        <div id="img" class="col d-flex flex-column justify-content-start align-items-center">
+            {% if show_result %}
+                <div class="card profile-card-4 mt-4 align-text-center">
+                    <h2 class="mt-2 ml-4">Resultado da Classificação</h2>
+                    {% if _class == 0 %}
+                        <div class="card profile-card-4 mt-4 mb-2 border border-success" style="margin-left: 100px;margin-right: 100px;">
+                            <img src="{{img}}" width="210px" height="200px" class="mb-2 mt-2 mr-2 ml-2" >
+                        </div>
+                        <div class="card profile-card-4 mb-4 border border-success" style="margin-left: 60px;margin-right: 50px;">
+                            <h4 class="mt-2 mb-2 ml-1">{{result}}:&nbsp;{{probability}}%</h4>
+                        </div>    
+                    {% endif %}
+                    {% if _class == 1 %}
+                        <div class="card profile-card-4 mt-4 mb-2 border border-danger" style="margin-left: 100px;margin-right: 100px;">
+                            <img src="{{img}}" width="210px" height="200px" class="mb-2 mt-2 mr-2 ml-2" >
+                        </div>
+                        <div class="card profile-card-4 mb-4 border border-danger" style="margin-left: 90px;margin-right: 85px;">
+                            <h4 class="mt-2 ml-1">{{result}}:&nbsp;{{probability}}%</h4>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+
+    document.querySelector('.custom-file-input').addEventListener("input", function(){
+        var filename = document.querySelector('#file').value;
+        var label = document.querySelector('.custom-file-label');
+        label.innerHTML = filename;
+    });    
+
+    function validateProcessing() {
+        if (filename === "" || filename == null) {
+            alert('Deve ser selecionado um arquivo');
+            return false
+        }
+    };
+
+</script>
+
+{% endblock %}
