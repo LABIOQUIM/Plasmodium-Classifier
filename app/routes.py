@@ -5,7 +5,7 @@ from .models import User
 from .config import os, Config
 from .admin_required import admin_required
 from .upload_img import upload_file
-#from .classifier import classify_image
+from .classifier import classify_image
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
@@ -69,12 +69,10 @@ def index():
         file = request.files.get('file')
         upload_file(file)
         img = '/static/img/upload/' + file.filename
-        #result = classify_image(file)
-        #result['classification']
-        #result['probability']
-        #result['class']
+        result = classify_image(file)
+        
         return render_template('index.html', actindex = 'active', show_result=show_result, img=img,
-            result='', probability='', _class=0)
+            result=result['classification'], probability=result['probability'], _class=result['class'])
 
     return render_template('index.html', actindex = 'active', show_result=show_result)
     
