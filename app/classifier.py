@@ -11,29 +11,29 @@ torch.manual_seed(123)
 #Constroi o modelo da rede neural
 #output = (input - filter + 1) / stride
 classifier = nn.Sequential(nn.Conv2d(in_channels = 3, 
-                                            out_channels = 32,
-                                            kernel_size = 3),
-                                nn.ReLU(),
-                                nn.BatchNorm2d(num_features = 32),
-                                #(64 - 3 + 1) / 1 = 62x62
-                                nn.MaxPool2d(kernel_size = 2),
-                                #31x31
-                                nn.Conv2d(32, 32, 3),
-                                nn.ReLU(),
-                                nn.BatchNorm2d(32),
-                                #(31 - 3 + 1) / 1 = 29x29
-                                nn.MaxPool2d(2),
-                                #14x14
-                                nn.Flatten(),
-                                #6272 -> 128 -> 128 -> 1
-                                nn.Linear(in_features = 14*14*32, out_features = 128),
-                                nn.ReLU(),
-                                nn.Dropout(0.2),
-                                nn.Linear(128, 128),
-                                nn.ReLU(),
-                                nn.Dropout(0.2),
-                                nn.Linear(128, 1),
-                                nn.Sigmoid())
+                                    out_channels = 32,
+                                    kernel_size = 3),
+                          nn.ReLU(),
+                          nn.BatchNorm2d(num_features = 32),
+                          #(64 - 3 + 1) / 1 = 62x62
+                          nn.MaxPool2d(kernel_size = 2),
+                          #31x31
+                          nn.Conv2d(32, 32, 3),
+                          nn.ReLU(),
+                          nn.BatchNorm2d(32),
+                          #(31 - 3 + 1) / 1 = 29x29
+                          nn.MaxPool2d(2),
+                          #14x14
+                          nn.Flatten(),
+                          #6272 -> 128 -> 128 -> 1
+                          nn.Linear(in_features = 14*14*32, out_features = 128),
+                          nn.ReLU(),
+                          nn.Dropout(0.2),
+                          nn.Linear(128, 128),
+                          nn.ReLU(),
+                          nn.Dropout(0.2),
+                          nn.Linear(128, 1),
+                          nn.Sigmoid())
 
 criterion = nn.BCELoss()
 optmizer = optim.Adam(classifier.parameters())
