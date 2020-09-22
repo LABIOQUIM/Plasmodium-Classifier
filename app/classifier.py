@@ -102,8 +102,10 @@ def training_loop(loader, epoch):
     #Imprimindo os dados referentes a essa época
     print('\r ÉPOCA {:3d} FINALIZADA: perda {:.5f} - precisão {:.5f}'.format(epoch + 1, running_loss/len(loader), running_accuracy/len(loader)))
 
-#Quanto maior a quantidade de epocas de treinamento, maior a precisão da rede na classificação
-for epoch in range(10):
+# Quanto maior a quantidade de epocas de treinamento, maior a precisão da rede na classificação
+# Quantitade minima em produção = 10
+# Quantidade para agilizar desenvolvimento = 2 
+for epoch in range(2):
     print('Treinando...')
     training_loop(training_loader, epoch)
     classifier.eval()
