@@ -8,8 +8,6 @@ from .upload_img import upload_file
 from .classifier import Classifier
 from app import classifier
 
-#classifier = Classifier()
-
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
@@ -26,7 +24,7 @@ def cadastro():
             new.set_password(password)
             db.session.add(new)
             db.session.commit()
-            flash('Solicitação de cadastro do(a) Usuário(a) {} realizada com sucesso. Em breve responderemos por Email se a solicitação foi aceita.'.format(user), 'primary')
+            flash('Solicitação de cadastro do(a) Usuário(a) {} realizada com sucesso. Em breve seu cadastro será ativado.'.format(user), 'primary')
             return redirect(url_for('login'))
         else:
             flash('Erro, email  ou usuário já estão sendo utilizados.', 'danger')
@@ -46,7 +44,7 @@ def login():
             return render_template('login.html')
         #verifica se o cadastro do usuário é aceito.
         if user.register == 'False':
-            flash('Seu cadastro ainda não foi aceito, aguarde o Email de confirmação.', 'danger')     
+            flash('Seu cadastro ainda não foi aceito, aguarde a confirmação.', 'danger')     
         else :
             login_user(user)
             return redirect(url_for('protected'))
@@ -72,12 +70,21 @@ def index():
         file = request.files.get('file')
         upload_file(file)
         img = '/static/img/upload/' + file.filename
-        classifier = Classifier()
+        #classifier = Classifier()
         result = classifier.classify_image(file)
         
         return render_template('index.html', actindex = 'active', show_result=show_result, img=img,
             result=result['classification'], probability=result['probability'], _class=result['class'])
 
     return render_template('index.html', actindex = 'active', show_result=show_result)
-    
-    
+
+@app.route('/admin', methods=['GET', 'POST'])
+@admin_required
+def admin():
+    UserData = User.query.filter(User.register == 'True')
+    return render_template('admin.html', actadmin = 'active', UserData=UserData)
+
+@app.route('/admin/training', methods=['GET', 'POST'])
+@admin_required
+def training():
+    classifier = Classifier()
