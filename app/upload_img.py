@@ -18,7 +18,8 @@ def upload_file(file):
 
     if allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(basedir, 'static', 'img', 'upload', filename))
+        img = os.path.join(basedir, 'static', 'img', 'upload', filename)
+        file.save(img)
         return True
     else:
         return False
