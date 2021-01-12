@@ -5,11 +5,8 @@ from .models import User
 from .config import os, Config
 from .admin_required import admin_required
 from .upload_img import upload_file
-from .classifier import Classifier
-from app import classifier
+from .classifier import classify_image, training
 
-#classifier = Classifier()
-        
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
@@ -72,8 +69,7 @@ def index():
         file = request.files.get('file')
         upload_file(file)
         img = '/static/img/upload/' + file.filename
-        #classifier = Classifier()
-        result = classifier.classify_image(file)
+        result = classify_image(img)
         
         return render_template('index.html', actindex = 'active', show_result=show_result, img=img,
             result=result['classification'], probability=result['probability'], _class=result['class'])
@@ -125,5 +121,5 @@ def removeuser(id):
 
 @app.route('/admin/training', methods=['GET', 'POST'])
 @admin_required
-def training():
-    classifier = Classifier()
+def execute_training():
+    training()
