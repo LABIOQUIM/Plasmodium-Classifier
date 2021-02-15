@@ -202,3 +202,4 @@ def removeuser(id):
 @admin_required
 def execute_training():
     training()
+    return redirect(url_for('admin'))
