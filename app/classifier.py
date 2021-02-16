@@ -105,7 +105,7 @@ def training_loop(loader, epoch):
 # Quantitade minima em produção = 10
 # Quantidade para agilizar desenvolvimento = 2 
 def training():
-  for epoch in range(2):
+  for epoch in range(10):
     print('Treinando...')
     training_loop(training_loader, epoch)
     classifier.eval()
