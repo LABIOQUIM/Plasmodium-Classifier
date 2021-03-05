@@ -9,6 +9,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), unique=True, index=True) 
     register = db.Column(db.String(10), index=True)
+    admin = db.Column(db.String(10), index=True)
     password_hash = db.Column(db.String(128))
     
     def set_password(self, password):

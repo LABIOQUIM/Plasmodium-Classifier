@@ -53,6 +53,7 @@ transform_train = transforms.Compose(
   ]
 )
 
+'''
 transform_test = transforms.Compose(
   [
     #Dimensiona todas as imagem para ter o mesmo tamanho.
@@ -61,6 +62,7 @@ transform_test = transforms.Compose(
     transforms.ToTensor()
   ]
 )
+'''
 
 #Cria o dataset para treinamento
 training_dataset = datasets.ImageFolder(data_dir_training, transform = transform_train)

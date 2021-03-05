@@ -6,10 +6,10 @@ def admin_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
         try:
-            user = current_user.username
+            user = current_user.admin
         except:
             user = ""
-        if user != 'admin':
+        if user != 'True':
             return current_app.login_manager.unauthorized()
         else:
             return fn(*args, **kwargs)

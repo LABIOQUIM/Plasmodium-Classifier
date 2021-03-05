@@ -22,7 +22,7 @@
             <nav class="container">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link text-dark border-right {{ actindex }}" id="index" data-toggle="tab" href="{{ url_for('index') }}" role="tab" aria-controls="index" aria-selected="true">Home</a>
-                    {% if current_user.username == 'admin' %}
+                    {% if current_user.admin == 'True' %}
                         <a class="nav-item nav-link text-dark  {{ actadmin }}" id="Admin-tab" data-toggle="tab" href="{{ url_for('admin') }}" role="tab" aria-controls="admin" aria-selected="false">Painel Admin</a>
                     {% endif %}
                     <a class="nav-item nav-link text-danger border border-danger mb-auto ml-auto {{ actlogout }} {{'invisible' if not current_user.username else ''}}" id="logout-tab" data-toggle="tab" href="{{ url_for('logout') }}" role="tab" aria-control="logout" aria-selected="false" >

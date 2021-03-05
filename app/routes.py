@@ -19,7 +19,7 @@ def cadastro():
         check_email = User.query.filter(User.email == email).first()
         check_user = User.query.filter(User.username == user).first()
         if check_email is None and check_user is None:
-            new = User(name=name,username=user,email=email,register='False')
+            new = User(name=name,username=user,email=email,register='False',admin='False')
             new.set_password(password)
             db.session.add(new)
             db.session.commit()
@@ -83,6 +83,7 @@ def index():
 @app.route('/admin', methods=['GET', 'POST'])
 @admin_required
 def admin():
+    print(current_user.admin)
     UserData = User.query.filter(User.register == 'True')
     return render_template('admin.html', actadmin = 'active', UserData=UserData)
 
@@ -129,7 +130,6 @@ def edit_user(id):
     UserData = User.query.get(int(id))
     return render_template('edit_user.html', UserData=UserData)
 
-
 @app.route('/admin/newUser', methods=['GET', 'POST'])
 @admin_required
 def newuser():
@@ -143,7 +143,7 @@ def newuser():
         check_email = User.query.filter(User.email == email).first()
         check_user = User.query.filter(User.username == user).first()
         if check_email is None and check_user is None:
-            new = User(name=name,username=user,email=email,register='True')
+            new = User(name=name,username=user,email=email,register='True', admin='False')
             new.set_password(password)
             db.session.add(new)
             db.session.commit()
@@ -185,7 +185,6 @@ def remove_newUser(id):
     flash('Solicitação de cadastro do(a) usuário(a) {} removida com sucesso.'.format(UserData.username), 'primary')
     return redirect(url_for('admin_cadastros'))
 
-
 @app.route('/admin/remove/<int:id>')
 @admin_required
 def removeuser(id):
@@ -201,5 +200,6 @@ def removeuser(id):
 @app.route('/admin/training', methods=['GET', 'POST'])
 @admin_required
 def execute_training():
+    #Desenvolver template para o treinamento
     training()
     return redirect(url_for('admin'))
